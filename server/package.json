@@ -1,0 +1,24 @@
+{
+  "name": "advisory",
+  "version": "1.0.0",
+  "description": "Advisory API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/cbonoz/signai23"
+  },
+  "keywords": [
+    "document",
+    "signing",
+    "ai",
+    "intelligence"
+  ],
+  "author": "Chris Buonocore",
+  "license": "ISC",
+  "dependencies": {
+    "pdf-parse": "^1.1.1"
+  }
+}
