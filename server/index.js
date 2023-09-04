@@ -3,6 +3,9 @@ import * as DropboxSign from "@dropbox/sign";
 import * as multipart from 'fastify-multipart';
 import PdfParse from 'pdf-parse/lib/pdf-parse.js'
 import dotenv from 'dotenv';
+// cors
+import cors from '@fastify/cors'
+
 
 import fs from 'fs';
 import path from 'path';
@@ -18,6 +21,12 @@ console.log('username', DROPBOX_KEY)
 
 const fastify = Fastify({
   logger: true
+})
+
+fastify.register(cors, {
+  origin: '*',
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 })
 
 fastify.get('/', async (request, reply) => {
@@ -81,8 +90,11 @@ fastify.get('/embed/:signatureId', async (request, reply) => {
     result = await embeddedApi.embeddedSignUrl(signatureId);
   } catch (e) {
     console.error('error', e)
+    const error = e.response.data
+    reply.code(500).send({error})
+    return;
   }
-  console.log('result', result)
+  console.log('result', signatureId, result)
   reply.send(result.response.data);
 })
 
