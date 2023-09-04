@@ -1,10 +1,52 @@
+'use client';
+
 import Image from 'next/image'
 import styles from './page.module.css'
+import HelloSign from 'hellosign-embedded';
+import { useState } from 'react';
+import { getEmbedUrl } from './api';
+
 
 export default function Home() {
+
+  const [signatureId, setSignatureId] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  // https://developers.hellosign.com/docs/embedded-signing/walkthrough/#AppApproval
+  const openEmbedded = async () => {
+    if (!signatureId) {
+      alert('No signature id')
+      return
+    }
+
+    const client = new HelloSign();
+    // TODO: fetch from api
+    let url;
+    try {
+      const res = await getEmbedUrl(signatureId)
+      // url = 'https://app.hellosign.com/editor/embeddedSign?signature_id=9bc6c8bab070b3e32eed4261b41a39aa&token=1f8c598a94846f9a5d07f7ec5744ab99'
+      url = res.embedded.sign_url;
+      console.log('get embed url', url)
+    } catch (e) {
+      console.error('error', e)
+      return
+    }
+
+    client.open(url, {
+      clientId: process.env.NEXT_PUBLIC_DROPBOX_CLIENT_ID,
+      skipDomainVerification: true,
+    })
+
+    client.on('sign', (data) => {
+      console.log('The document has been signed!');
+      console.log('Signature data: ' + data);
+    });
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
+        <button onClick={openEmbedded}>Open Embedded</button>
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.js</code>

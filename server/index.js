@@ -1,4 +1,20 @@
 import Fastify from 'fastify'
+import * as DropboxSign from "@dropbox/sign";
+import * as multipart from 'fastify-multipart';
+import PdfParse from 'pdf-parse/lib/pdf-parse.js'
+import dotenv from 'dotenv';
+
+import fs from 'fs';
+import path from 'path';
+
+const config = dotenv.config()
+
+const embeddedApi = new DropboxSign.EmbeddedApi();
+
+const {DROPBOX_KEY, OPENAPI_KEY} = process.env
+
+embeddedApi.username = DROPBOX_KEY
+console.log('username', DROPBOX_KEY)
 
 const fastify = Fastify({
   logger: true
@@ -9,11 +25,7 @@ fastify.get('/', async (request, reply) => {
   return { hello: 'world' }
 })
 
-const fs = require('fs');
-const path = require('path');
-const PDFParser = require('pdf-parse');
-
-fastify.register(require('fastify-multipart'));
+fastify.register(multipart);
 
 fastify.post('/extract-pdf-content', async (request, reply) => {
   try {
@@ -29,7 +41,8 @@ fastify.post('/extract-pdf-content', async (request, reply) => {
     await pdf.mv(pdfPath);
 
     const pdfData = await fs.promises.readFile(pdfPath);
-    const pdfParser = new PDFParser(pdfData);
+
+    const pdfParser = new PdfParse(pdfData);
 
     pdfParser.on('pdfParser_dataError', errData => console.error(errData.parserError));
     pdfParser.on('pdfParser_dataReady', async pdfData => {
@@ -61,6 +74,18 @@ fastify.post('/extract-pdf-content', async (request, reply) => {
   }
 });
 
+fastify.get('/embed/:signatureId', async (request, reply) => {
+  const { signatureId } = request.params
+  let result
+  try {
+    result = await embeddedApi.embeddedSignUrl(signatureId);
+  } catch (e) {
+    console.error('error', e)
+  }
+  console.log('result', result)
+  reply.send(result.response.data);
+})
+
 
 fastify.post('/summarize', async (request, reply) => {
     const { text } = request.body
@@ -69,7 +94,7 @@ fastify.post('/summarize', async (request, reply) => {
     return { summary }
 })
 
-fastify.listen({ port: 3000 }, (err, address) => {
+fastify.listen({ port: 3001 }, (err, address) => {
   if (err) throw err
   // Server is now listening on ${address}
 })

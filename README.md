@@ -10,11 +10,20 @@ Advisory
 
 Advisory is an innovative document signing platform that harnesses the power of AI to offer contextual insights and document summaries as you navigate through the process of signing a document.
 
+TODO:
+1. Move signature
+
 ## Inspiration
 The inspiration behind Advisory came from the need to streamline the document signing process and enhance its efficiency. Traditional signing methods often lack clarity and can be time-consuming, which led us to develop a solution that not only facilitates signatures but also enriches the signer's understanding of the document's content.
 
 ## What it does
 Advisory revolutionizes document signing by integrating real-time document analysis and summarization. As users place their signatures within the document, the platform intelligently generates summaries of the content surrounding the signature placements. This ensures that signers have a clear grasp of the document's context, even as they progress through the signature process.
+
+The Advisory prototype binds custom fields to an embedded dropbox api request to create a guided walkthrough with OpenAI.
+
+1. Create embedded request with metadata. Specify the breaks at which to do summaries of the document.
+2. Pull the embedded request. Signature splits parse through the openapi spec using pdf parsing to generate a summary on the fly.
+3. Sign the document with the embedded viewer and a guide on the right.
 
 ## How we built it
 We built Advisory using a combination of advanced natural language processing (NLP) techniques and user-friendly interface design. The NLP algorithms allow us to extract key information and generate concise summaries, while the intuitive interface ensures a seamless signing experience for users.
@@ -42,3 +51,6 @@ During the development of Advisory, we gained a deeper understanding of the intr
 ## Useful links
 * https://developers.hellosign.com/api/quickstart/
 * https://github.com/hellosign/dropbox-sign-node
+
+### Example signature id (embedded):
+ca78c2d82f172017cd602f047ee553323f3b92f9
