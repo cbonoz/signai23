@@ -8,8 +8,8 @@ import { getEmbedUrl } from './api';
 
 
 export default function Home() {
-
-  const [signatureId, setSignatureId] = useState(null)
+  // https://developers.hellosign.com/api/reference/operation/signatureRequestGet/
+  const [signatureId, setSignatureId] = useState('580a47268c65e54acf062479b3d96b8b') // Should be unsigned signature id (signature id is signer specific).
   const [loading, setLoading] = useState(false)
 
   // https://developers.hellosign.com/docs/embedded-signing/walkthrough/#AppApproval
