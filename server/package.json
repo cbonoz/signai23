@@ -27,6 +27,8 @@
     "fastify": "^4.22.2",
     "fastify-multipart": "^5.4.0",
     "fs": "^0.0.1-security",
-    "pdf-parse": "1.1.1"
+    "openai": "^4.11.0",
+    "pdf-parse": "1.1.1",
+    "pdf.js-extract": "^0.2.1"
   }
 }

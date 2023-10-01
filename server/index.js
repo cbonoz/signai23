@@ -1,8 +1,9 @@
 import Fastify from 'fastify'
 import * as DropboxSign from "@dropbox/sign";
 import * as multipart from 'fastify-multipart';
-import PdfParse from 'pdf-parse/lib/pdf-parse.js'
 import dotenv from 'dotenv';
+import pdf from 'pdf-parse';
+
 // cors
 import cors from '@fastify/cors'
 
@@ -35,53 +36,30 @@ fastify.get('/', async (request, reply) => {
 })
 
 fastify.register(multipart);
-
-fastify.post('/extract-pdf-content', async (request, reply) => {
+fastify.post('/upload', async (request, reply) => {
   try {
-    const { pdf } = request.files;
-    const { fromPage, toPage } = request.body;
-
-    if (!pdf || !fromPage || !toPage) {
-      reply.code(400).send({ error: 'Missing required parameters.' });
-      return;
+    const data = await request.file();
+    
+    if (!data || !data.mimetype || data.mimetype !== 'application/pdf') {
+      return reply
+        .code(400)
+        .send({ error: 'Invalid file format. Please upload a PDF file.' });
     }
 
-    const pdfPath = path.join(__dirname, 'uploads', pdf.name);
-    await pdf.mv(pdfPath);
+    // Parse the PDF
+    const pdfText = await pdf(await data.toBuffer());
 
-    const pdfData = await fs.promises.readFile(pdfPath);
+    // Extract text from the parsed PDF
+    const text = pdfText.text;
 
-    const pdfParser = new PdfParse(pdfData);
-
-    pdfParser.on('pdfParser_dataError', errData => console.error(errData.parserError));
-    pdfParser.on('pdfParser_dataReady', async pdfData => {
-      const { numpages } = pdfData;
-      if (fromPage < 1 || toPage > numpages || fromPage > toPage) {
-        reply.code(400).send({ error: 'Invalid page range.' });
-        return;
-      }
-
-      let extractedText = '';
-
-      for (let i = fromPage - 1; i < toPage; i++) {
-        extractedText += pdfData.formImage.Pages[i].Texts.map(textObj => {
-          return Buffer.from(textObj.R[0].T, 'hex').toString('utf-8');
-        }).join(' ');
-      }
-
-      console.log('text', extractedText)
-      
-      const summary = await summarize(extractedText)
-      reply.type('application/json').code(200)
-      return { summary }
-    });
-
-    pdfParser.parseBuffer();
-  } catch (err) {
-    console.error(err);
-    reply.code(500).send({ error: 'An error occurred.' });
+    // Return the extracted text
+    return { text };
+  } catch (error) {
+    console.error(error);
+    return reply.code(500).send({ error: 'Internal Server Error' });
   }
 });
+
 
 fastify.get('/embed/:signatureId', async (request, reply) => {
   const { signatureId } = request.params
