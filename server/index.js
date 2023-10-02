@@ -1,18 +1,17 @@
 import Fastify from 'fastify'
 import * as DropboxSign from "@dropbox/sign";
 import * as multipart from 'fastify-multipart';
-import dotenv from 'dotenv';
+import 'dotenv/config'
 
 // cors
 import cors from '@fastify/cors'
-import { generateEmail } from './aihelper';
-const config = dotenv.config()
+import { generateEmail } from './utils/aihelper.js';
 
 const embeddedApi = new DropboxSign.EmbeddedApi();
 const signatureApi = new DropboxSign.SignatureRequestApi();
 const accountApi = new DropboxSign.AccountApi();
 
-const { DROPBOX_KEY, OPENAPI_KEY } = process.env
+const DROPBOX_KEY = process.env.DROPBOX_KEY
 
 const accountIdMap = {}
 
@@ -90,35 +89,36 @@ fastify.post('/summarize', async (request, reply) => {
 fastify.get('/requests', async (request, reply) => {
   // get email from query param
   const { email, page } = request.query
-  let result
+  let accountId = accountIdMap[email]
   try {
-    let accountId = accountIdMap[email]
     if (!accountId) {
       const response = await accountApi.accountGet(undefined, email);
       accountId = response.body.account.accountId;
       console.log('accountId', accountId, email)
       accountIdMap[email] = accountId
     }
-    const response = await signatureApi.signatureRequestList(accountId, page || 1);
-    result = response.body.signatureRequests;
+    const response = await signatureApi.signatureRequestList(accountId, page || 1, 10);
+    console.log('response', response.body)
+    const {body} = response
+    const requests = body.signatureRequests;
+    const numResults = body.listInfo?.numResults || requests.length;
+    return {
+      requests,
+      numResults
+    }
   } catch (e) {
     console.error('error', e)
     const error = e.response.data
     reply.code(500).send({ error })
-    return;
-  }
-  return {
-    requests: result,
-    accountId
   }
 });
 
 
 fastify.post('/generate/email', async (request, reply) => {
   // Get post body params from request
-  const { requestId, signers, documentContent, context } = request.params
+  const { requestId, signers, documentContent, context } = request.body
 
-  const text = generateEmail(documentContent, requestId, signers, context)
+  const text = await generateEmail(documentContent, requestId, signers, context)
   return {
     text
   }

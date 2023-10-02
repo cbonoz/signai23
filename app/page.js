@@ -4,18 +4,22 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react';
 import { Button, Col, Input, Row } from 'antd';
 import { APP_DESC } from './constants';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 
 const VALUE_STATEMENTS = [
-  'We are a team of experienced professionals who are passionate about helping our clients achieve their goals.',
-  'We are a team of experienced professionals who are passionate about helping our clients achieve their goals.',
-  'We are a team of experienced professionals who are passionate about helping our clients achieve their goals.',
+  "Optimize your signature request process with AI-generated messaging.",
+  "Deployed privately to your dropbox sign account",
+  "Open source using GPT-3.5",
 ]
 
 
 export default function Home() {
    return (
     <>
+    <br/>
+    <br/>
+    <br/>
 
       <Row gutter={{
         xs: 8,
@@ -28,17 +32,20 @@ export default function Home() {
         padding: '0 20px'
       }}>
         <Col span={12}>
-          <h1>{APP_DESC}</h1>
+          <div className='hero-slogan bold' >{APP_DESC}</div>
           <br/>
           <br/>
+          <div className='value-section'>
           {VALUE_STATEMENTS.map((statement, index) => {
             return (
               <p key={index} className='success-text'>
                 {/* <CheckboxOutlined/> */}
+                <CheckCircleOutlined />&nbsp;
                 {statement}
               </p>
             )})
           }
+</div>
 
           <Button size="large" className='standard-margin' type="primary" onClick={() => {
             window.location.href = '/optimize'
@@ -49,7 +56,7 @@ export default function Home() {
         </Col>
         <Col span={12}>
 
-          <Image src="/logo.png" alt="Advisory Logo" width={180} height={37} /><br /><br />
+          <Image src="/logo_3_2.png" alt="Advisory Logo" width={600} height={400} /><br /><br />
 
         </Col>
 

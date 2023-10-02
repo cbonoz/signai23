@@ -23,7 +23,16 @@ Advisory takes the challenge out of crafting the perfect signature request email
 ### How to run
 `yarn; yarn dev`
 
+    
+
 From `./server`
+
+Set the following `.env` variables:
+<pre>
+    DROPBOX_KEY= // your key for sign api
+    DROPBOX_CLIENT_ID= // your dropbox app client id
+    OPENAI_KEY= // your open ai api key
+</pre>
 
 `yarn; yarn start`
 

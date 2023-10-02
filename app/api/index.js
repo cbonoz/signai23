@@ -16,7 +16,7 @@ export const generateEmail = async (body) => {
     return data;
 }
 
-export const getRequests = async (email) => {
-    const { data } = await axiosInstance.get(`/requests?email=${email}`)
+export const getRequests = async (email, page) => {
+    const { data } = await axiosInstance.get(`/requests?email=${email}&page=${page}`)
     return data;
 }

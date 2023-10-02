@@ -170,13 +170,22 @@ a {
 }
 
 .hero-slogan {
-  font-size: 28px;
+  font-size: 32px;
 }
 
 .vertical-margin,
 .standard-button {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.value-section {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.value-section p {
+  margin-bottom: 20px;;
 }
 
 .pointer {
@@ -222,6 +231,10 @@ textarea {
 
 .white {
   background: white;
+}
+
+.display-linebreak {
+  white-space: pre-line;
 }
 
 .boxed {

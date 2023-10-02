@@ -3,17 +3,20 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react';
 import { generateEmail, getEmbedUrl, getRequests } from '../api';
-import { Button, Input, Row, Col, Card, Table } from 'antd';
+import { Button, Input, Row, Col, Card, Table, Pagination, Divider } from 'antd';
+import DisplayRequest from '../lib/DisplayRequest';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 
 
 export default function Optimize() {
     // https://developers.hellosign.com/api/reference/operation/signatureRequestGet/
     // const [signatureId, setSignatureId] = useState('580a47268c65e54acf062479b3d96b8b') // Should be unsigned signature id (signature id is signer specific).
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('chrisdistrict@gmail.com')
     const [loading, setLoading] = useState(false)
     const [dataLoading, setDataLoading] = useState(false)
     const [result, setResult] = useState({})
     const [activeRequest, setActiveRequest] = useState(null)
+    const [page, setPage] = useState(1)
     const [requests, setRequests] = useState([])
     const [error, setError] = useState(null)
 
@@ -37,9 +40,9 @@ export default function Optimize() {
         setError(null)
 
         try {
-            const response = await getRequests(email);
+            const response = await getRequests(email, page)
             console.log('data', response)
-            setRequests(response.requests)
+            setRequests(response)
         } catch (error) {
             setError(error)
         } finally {
@@ -47,19 +50,23 @@ export default function Optimize() {
         }
     }
 
+    useEffect(() => {
+        fetchData()
+    }, [page]);
+
     const generate = async () => {
         setLoading(true)
         setError(null)
 
         try {
             const body = {
-                signerName: activeRequest.signatures[0].signerName,
-                documentContent: activeRequest.title,
-                context: 'The signer is a lawyer and busy',
+                signerName: (activeRequest.signatures || []).map(s => s.signerName).join(','),
+                documentContent: `${activeRequest.title}. ${activeRequest.message}`,
+                context: '',
                 requestId: activeRequest.signatureRequestId
             }
-            const { data } = await generateEmail();
-            setResult(data)
+            const res = await generateEmail(body);
+            setResult(res)
         } catch (error) {
             setError(error)
             setResult({
@@ -73,55 +80,78 @@ export default function Optimize() {
 
     return (
         <Row gutter={[16, 16]}>
-            <Col span={12}>
+            <Col sm={12} xs={24}>
                 <Card title="Provide information">
 
-                    <Input placeholder='Email' 
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
-                        disabled={loading}/>
+                    <Input placeholder='Email'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        disabled={loading} />
 
-                    <Button type="primary" className='standard-btn' onClick={fetchData} disabled={loading} loading={dataLoading}>Fetch data</Button>    
 
                     {activeRequest && <div>
                         {/* Back */}
-                        <Button type="primary" className='standard-btn' onClick={() => setActiveRequest(null)}>Back</Button>
+                        <Button type="primary" className='standard-btn' onClick={() => setActiveRequest(null)}>
+                            <ArrowLeftOutlined />&nbsp;Back
+                        </Button>
 
                         {/* Render active request */}
-                        {activeRequest.signatureRequestId}
 
-                        {activeRequest.signatures.map((signature, index) => {
-                            return (
-                                <div key={index}>
-                                    {signature.signerName}
-                                </div>
-                            )
-                        })}
+                        <DisplayRequest request={activeRequest} />
 
-                        
-                        </div>}
+                    </div>}
 
-                    {!activeRequest && <Table
-                        dataSource={requests}
-                        onClick={(record) => setActiveRequest(record)}
-                        columns={[
-                            {
-                                title: 'Title',
-                                dataIndex: 'title',
-                                key: 'title',
-                            },
-                        ]}/>}
+                    {!activeRequest && <div>
+                        <Button type="primary" className='standard-margin standard-btn' onClick={fetchData} disabled={loading} loading={dataLoading}>Fetch data</Button>
+
+                        <Table
+                            dataSource={requests.requests}
+                            pagination={false}
+                            className='poiner'
+                            onRow={(record, rowIndex) => {
+                                return {
+                                    onClick: () => { setActiveRequest(record) }, // click row
+                                };
+                            }}
+                            columns={[
+                                {
+                                    title: 'Title',
+                                    dataIndex: 'title',
+                                    key: 'title',
+                                    render: (text, record) => {
+                                        return (
+                                            <div>
+                                                {/* abbreviate */}
+                                                {text.substring(0, 50)}
+                                            </div>
+                                        )
+                                    }
+                                },
+                            ]} />
+                        <br />
+                        <Pagination onChange={
+                            (p, pageSize) => {
+                                console.log('page', p, pageSize)
+                                setPage(p)
+                            }
+                        } pageSize={10} defaultCurrent={page} total={requests.numResults} />
+
+                    </div>
+                    }
+
 
                 </Card>
 
             </Col>
 
-            <Col span={12}>
+            <Col sm={12} xs={24}>
 
                 <div>
                     <Card title="Recommendation">
                         <div>
-                            <Button type="primary" className='standard-btn' onClick={generate} disabled={loading} loading={loading}>Generate email</Button>
+                            <Button type="primary" className='standard-btn' onClick={generate} disabled={loading || !activeRequest} loading={loading}>Generate email</Button>
+
+                            <Divider/>
                         </div>
 
                         {/* error */}
@@ -130,10 +160,10 @@ export default function Optimize() {
                         </div>}
 
                         {/* Render result email recommendation with a copy as text */}
-                        {result && <div>
+                        {result.text && <div>
                             <h2>Result</h2>
 
-                            <div class="flex flex-col">
+                            <div class="flex flex-col display-linebreak">
                                 {result.text}
 
                                 <div class="flex flex-row">
