@@ -7,3 +7,14 @@ export const formatDate = (date) => {
     const localDate = date.toLocaleDateString()
     return localDate;
 }
+
+export const parseError = (error) => {
+    if (error.response && error.response.data) {
+        error = error.response.data.error?.error || error.response.data.error || error.response.data;
+    }
+    console.log('error', error)
+    if (error.body) {
+        return error.body.error?.errorMsg || error.body.error || error.body;
+    }
+    return error.error_msg || error.error || error.message || error;
+}

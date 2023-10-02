@@ -6,6 +6,7 @@ import { generateEmail, getEmbedUrl, getRequests } from '../api';
 import { Button, Input, Row, Col, Card, Table, Pagination, Divider } from 'antd';
 import DisplayRequest from '../lib/DisplayRequest';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import { parseError } from '../util';
 
 
 export default function Optimize() {
@@ -44,7 +45,7 @@ export default function Optimize() {
             console.log('data', response)
             setRequests(response)
         } catch (error) {
-            setError(error)
+            setError(parseError(error))
         } finally {
             setDataLoading(false)
         }
@@ -68,11 +69,7 @@ export default function Optimize() {
             const res = await generateEmail(body);
             setResult(res)
         } catch (error) {
-            setError(error)
-            setResult({
-                text: 'Example recommended text',
-                emailTo: 'test@example.com'
-            })
+            setError(parseError(error))
         } finally {
             setLoading(false)
         }
@@ -120,7 +117,7 @@ export default function Optimize() {
                                     key: 'title',
                                     render: (text, record) => {
                                         return (
-                                            <div>
+                                            <div key={record.signatureRequestId}>
                                                 {/* abbreviate */}
                                                 {text.substring(0, 50)}
                                             </div>
@@ -156,7 +153,7 @@ export default function Optimize() {
 
                         {/* error */}
                         {error && <div>
-                            <p className='error-text'>{error.message}</p>
+                            <p className='error-text'>{error}</p>
                         </div>}
 
                         {/* Render result email recommendation with a copy as text */}
