@@ -1,137 +1,60 @@
 'use client';
 
 import Image from 'next/image'
-import styles from './page.module.css'
-import HelloSign from 'hellosign-embedded';
-import { useState } from 'react';
-import { getEmbedUrl } from './api';
+import { useEffect, useState } from 'react';
+import { Button, Col, Input, Row } from 'antd';
+import { APP_DESC } from './constants';
+
+
+const VALUE_STATEMENTS = [
+  'We are a team of experienced professionals who are passionate about helping our clients achieve their goals.',
+  'We are a team of experienced professionals who are passionate about helping our clients achieve their goals.',
+  'We are a team of experienced professionals who are passionate about helping our clients achieve their goals.',
+]
 
 
 export default function Home() {
-  // https://developers.hellosign.com/api/reference/operation/signatureRequestGet/
-  const [signatureId, setSignatureId] = useState('580a47268c65e54acf062479b3d96b8b') // Should be unsigned signature id (signature id is signer specific).
-  const [loading, setLoading] = useState(false)
+   return (
+    <>
 
-  // https://developers.hellosign.com/docs/embedded-signing/walkthrough/#AppApproval
-  const openEmbedded = async () => {
-    if (!signatureId) {
-      alert('No signature id')
-      return
-    }
+      <Row gutter={{
+        xs: 8,
+        sm: 16,
+        md: 24,
+        lg: 32
+      }} style={{
+        margin: '0 auto',
+        maxWidth: '1200px',
+        padding: '0 20px'
+      }}>
+        <Col span={12}>
+          <h1>{APP_DESC}</h1>
+          <br/>
+          <br/>
+          {VALUE_STATEMENTS.map((statement, index) => {
+            return (
+              <p key={index} className='success-text'>
+                {/* <CheckboxOutlined/> */}
+                {statement}
+              </p>
+            )})
+          }
 
-    const client = new HelloSign();
-    // TODO: fetch from api
-    let url;
-    try {
-      const res = await getEmbedUrl(signatureId)
-      // url = 'https://app.hellosign.com/editor/embeddedSign?signature_id=9bc6c8bab070b3e32eed4261b41a39aa&token=1f8c598a94846f9a5d07f7ec5744ab99'
-      url = res.embedded.sign_url;
-      console.log('get embed url', url)
-    } catch (e) {
-      console.error('error', e)
-      return
-    }
+          <Button size="large" className='standard-margin' type="primary" onClick={() => {
+            window.location.href = '/optimize'
+          }
+          }>Get started</Button>&nbsp;
+          
 
-    client.open(url, {
-      clientId: process.env.NEXT_PUBLIC_DROPBOX_CLIENT_ID,
-      skipDomainVerification: true,
-    })
+        </Col>
+        <Col span={12}>
 
-    client.on('sign', (data) => {
-      console.log('The document has been signed!');
-      console.log('Signature data: ' + data);
-    });
-  };
+          <Image src="/logo.png" alt="Advisory Logo" width={180} height={37} /><br /><br />
 
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <button onClick={openEmbedded}>Open Embedded</button>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+        </Col>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      </Row>
+    </>
   )
 }

@@ -6,51 +6,37 @@
 Advisory
 ---
 
-<!-- https://legaltemplates.net/form/lease-agreement/ -->
 
-Advisory is an innovative document signing platform that harnesses the power of AI to offer contextual insights and document summaries as you navigate through the process of signing a document.
-
-TODO:
-1. Move signature
+Advisory is a messaging recommendation platform for optimizing signature request gathering via email.
 
 ## Inspiration
-The inspiration behind Advisory came from the need to streamline the document signing process and enhance its efficiency. Traditional signing methods often lack clarity and can be time-consuming, which led us to develop a solution that not only facilitates signatures but also enriches the signer's understanding of the document's content.
+
+Creating the signature request is only one part of the effort when using Dropbox/Hellosign.
+
+The second half is actually collecting the signature, and this can often be greatly influenced by the messaging that goes along with the request.
+
 
 ## What it does
-Advisory revolutionizes document signing by integrating real-time document analysis and summarization. As users place their signatures within the document, the platform intelligently generates summaries of the content surrounding the signature placements. This ensures that signers have a clear grasp of the document's context, even as they progress through the signature process.
 
-The Advisory prototype binds custom fields to an embedded dropbox api request to create a guided walkthrough with OpenAI.
+Advisory takes the challenge out of crafting the perfect signature request email by fusing the context of the signature request with generative AI to give you an email draft to send to the signer.
 
-1. Create embedded request with metadata. Specify the breaks at which to do summaries of the document.
-2. Pull the embedded request. Signature splits parse through the openapi spec using pdf parsing to generate a summary on the fly.
-3. Sign the document with the embedded viewer and a guide on the right.
+### How to run
 
 ## How we built it
-We built Advisory using a combination of advanced natural language processing (NLP) techniques and user-friendly interface design. The NLP algorithms allow us to extract key information and generate concise summaries, while the intuitive interface ensures a seamless signing experience for users.
-
-Advisory converts the content between signature N and N-1 to text form and runs it through the OpenAI API to summarize the content. The result of the summarization is displayed in the sidebar as you are signing the document.
 
 ## Challenges we ran into
-One of the primary challenges we encountered was fine-tuning the NLP models to generate accurate and relevant summaries based on signature placements. Balancing the need for comprehensive summaries with a concise and easy-to-digest format was another hurdle. Additionally, integrating the platform with various document formats and maintaining data security posed technical challenges that required careful consideration.
 
 ## Accomplishments that we're proud of
-We take pride in developing a solution that not only simplifies the document signing process but also enhances user comprehension. The successful integration of AI-driven summarization with the signing workflow marks a significant achievement. Moreover, achieving a balance between data security and accessibility underscores our commitment to user trust.
 
 ## What we learned
-During the development of Advisory, we gained a deeper understanding of the intricacies of NLP and how it can be effectively applied in real-world scenarios. We also learned the importance of striking a balance between automation and user control, ensuring that the AI-driven insights enhance the user experience without overwhelming it.
 
-## Potential future work
-
-* Enhanced AI Summarization: We envision refining our AI algorithms to achieve even greater precision in generating document summaries. This involves exploring advanced NLP techniques and machine learning models to capture finer nuances in the document content.
-* Personalized User Profiles: Building on user feedback, we plan to develop personalized user profiles that adapt to individual preferences. These profiles could enable users to customize the level of summarization, highlight specific sections, and even integrate annotations for a more tailored signing experience.
-* Collaborative Signing: Collaborative document signing is on our radar. We aim to facilitate seamless signing workflows for multiple stakeholders by introducing features that allow real-time collaboration, review, and approval, all while benefiting from Advisory's contextual summaries.
-* Integration with Ecosystem Partners: We're exploring partnerships with established document management and e-signature platforms. By integrating Advisory into these ecosystems, we can offer our AI-driven insights to a broader user base and enhance the value of existing document workflows.
-* Multilingual Support: Recognizing the global nature of business and communication, we plan to expand Advisory's capabilities to support a wider range of languages. This involves training our AI models on diverse linguistic patterns and structures to ensure accurate summaries across different languages.
+## What's next for Advisory
 
 
 ## Useful links
 * https://developers.hellosign.com/api/quickstart/
 * https://github.com/hellosign/dropbox-sign-node
+* https://legaltemplates.net/form/lease-agreement/
 
 ### Example signature id (embedded):
 ca78c2d82f172017cd602f047ee553323f3b92f9

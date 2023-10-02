@@ -10,3 +10,13 @@ export const getEmbedUrl = async (signatureId) => {
     const { data } = await axiosInstance.get(`/embed/${signatureId}`)
     return data;
 }
+
+export const generateEmail = async (body) => {
+    const { data } = await axiosInstance.post(`/generate/email`, body)
+    return data;
+}
+
+export const getRequests = async (email) => {
+    const { data } = await axiosInstance.get(`/requests?email=${email}`)
+    return data;
+}
