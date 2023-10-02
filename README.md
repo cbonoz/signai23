@@ -21,6 +21,11 @@ The second half is actually collecting the signature, and this can often be grea
 Advisory takes the challenge out of crafting the perfect signature request email by fusing the context of the signature request with generative AI to give you an email draft to send to the signer.
 
 ### How to run
+`yarn; yarn dev`
+
+From `./server`
+
+`yarn; yarn start`
 
 ## How we built it
 
