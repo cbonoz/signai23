@@ -356,6 +356,14 @@ textarea {
 .italic {
   font-style: italic;
 }
+.result-section {
+  margin-top: 10px;
+  /* lightest gray background */
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 10px;
+
+}
 
 .float-right {
   float: right;

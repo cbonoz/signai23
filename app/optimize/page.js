@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react';
 import { generateEmail, getEmbedUrl, getRequests } from '../api';
-import { Button, Input, Row, Col, Card, Table, Pagination, Divider } from 'antd';
+import { Button, Input, Row, Col, Card, Table, Pagination, Divider, Switch } from 'antd';
 import DisplayRequest from '../lib/DisplayRequest';
 import { ArrowLeftOutlined, CopyOutlined } from '@ant-design/icons';
 import { parseError } from '../util';
@@ -13,6 +13,7 @@ export default function Optimize() {
     // https://developers.hellosign.com/api/reference/operation/signatureRequestGet/
     // const [signatureId, setSignatureId] = useState('580a47268c65e54acf062479b3d96b8b') // Should be unsigned signature id (signature id is signer specific).
     const [email, setEmail] = useState('chrisdistrict@gmail.com')
+    const [visibleEmail, setVisibleEmail] = useState(false)
     const [loading, setLoading] = useState(false)
     const [dataLoading, setDataLoading] = useState(false)
     const [result, setResult] = useState({})
@@ -30,9 +31,9 @@ export default function Optimize() {
         const text = result.text
         if ("clipboard" in navigator) {
             await navigator.clipboard.writeText(text);
-          } else {
+        } else {
             document.execCommand("copy", true, text);
-          }
+        }
         alert('Copied to clipboard')
     }
 
@@ -86,6 +87,7 @@ export default function Optimize() {
                 <Card title="Provide information">
 
                     <Input placeholder='Email'
+                        type={visibleEmail ? 'text' : 'password'}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={loading} />
@@ -104,6 +106,12 @@ export default function Optimize() {
                     </div>}
 
                     {!activeRequest && <div>
+                        <br />
+                        <Switch checked={visibleEmail} onChange={setVisibleEmail} />
+                        <span>&nbsp;
+                            {visibleEmail ? 'Hide' : 'Show'} email
+                        </span>
+                        <br />
                         <Button type="primary" className='standard-margin standard-btn' onClick={fetchData} disabled={loading} loading={dataLoading}>Fetch data</Button>
 
                         <Divider />
@@ -156,7 +164,7 @@ export default function Optimize() {
                             <Button type="primary" className='standard-btn' onClick={generate} disabled={loading || !activeRequest} loading={loading}>Generate email</Button>
 
                         </div>
-                            <Divider/>
+                        <Divider />
 
                         {/* error */}
                         {error && <div>
@@ -165,17 +173,18 @@ export default function Optimize() {
 
                         {/* Render result email recommendation with a copy as text */}
                         {result.text && <div>
-                            <h2>Result&nbsp;<CopyOutlined 
-                            className='pointer'
-                            onClick={copyToClipboard}
+                            <h2>Suggested Email Draft&nbsp;<CopyOutlined
+                                className='pointer'
+                                onClick={copyToClipboard}
                             />
 
 
                             </h2>
 
                             <div class="flex flex-col display-linebreak">
-                                {result.text}
-
+                                <div className='result-section'>
+                                    {result.text}
+                                </div>
                                 <div class="flex flex-row">
                                     <Button type='primary' onClick={copyToClipboard} className='standard-btn'>
                                         Copy

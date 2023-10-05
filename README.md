@@ -72,7 +72,7 @@ User-Centric Design: We prioritized user experience and learned the importance o
 
 ## What's next for Advisory
 
-Advisory is an open source project and can be deployed for your unique organization locally/securely. Can use your existing Dropbox sign account and an OpenAI API key to quickly draft emails for all your requests at a very low cost.
+Advisory is an open source project and can be deployed for your unique organization locally/securely. Can use your existing Dropbox sign account and an OpenAI API key to quickly draft emails for all your requests.
 
 
 ## Useful links
