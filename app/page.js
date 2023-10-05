@@ -8,9 +8,9 @@ import { CheckCircleOutlined } from '@ant-design/icons';
 
 
 const VALUE_STATEMENTS = [
-  "Optimize your signature request process with AI-generated messaging.",
-  "Deployed privately to your dropbox sign account",
-  "Open source using GPT-3.5",
+  "Optimize your signature request process with AI-generated messaging",
+  "Deployed privately to your Dropbox Sign account",
+  "Open source and powered with GPT-3.5",
 ]
 
 
