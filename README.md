@@ -81,7 +81,7 @@ Advisory is an open source project and can be deployed for your unique organizat
 <img src="./img/home.png" width=600 />
 
 ### Optimize
-<img src="./img/.png" width=600 />
+<img src="./img/create.png" width=600 />
 
 ### NDA example
 <img src="./img/example.png" width=600 />
