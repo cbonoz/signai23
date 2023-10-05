@@ -24,7 +24,11 @@ Advisory is created as a free / hostable app that uses your Dropbox API key to e
 Advisory takes the challenge out of crafting the perfect signature request email by fusing the context of the signature request with generative AI to give you an email draft to send to the signer.
 
 ### How to run
+
+#### Client
 `yarn; yarn dev`
+
+#### Server
 
 From `./server`
 
