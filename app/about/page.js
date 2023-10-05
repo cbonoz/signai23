@@ -1,6 +1,6 @@
 'use client';
 
-import { APP_DESC, APP_NAME, EXAMPLE_DATASETS } from "../constants";
+import { APP_DESC, APP_NAME,  GITHUB_URL } from "../constants";
 import Image from 'next/image'
 import Button from 'antd/es/button'
 import { useRouter } from "next/navigation";
@@ -26,11 +26,10 @@ export default function About() {
             {/* github */}
             <p>
                 {APP_NAME} is an open source project. You can find the code on GitHub here:&nbsp;
-                <a href="https://github.com/signai23#how-to-run" target="_blank">GitHub</a>&nbsp;
+                <a href={GITHUB_URL} target="_blank">GitHub</a>&nbsp;
             </p>
 
-            <p>Note this is a hackathon prototype and would require additional work to be mainnet ready. By uploading data you agree that this service is used as-is and that data may be compromised or shared outside the platform.</p>
-
+            <p></p>
             <p>
                 {/* Create listing */}
                 <Button type="primary" onClick={() => {

@@ -2,10 +2,11 @@
 
 import { usePathname } from "next/navigation"
 import Link from "next/link";
-import { APP_NAME } from "../constants";
+import { APP_NAME, GITHUB_URL, HACKATHON_URL } from "../constants";
 import { Button, Layout, Menu } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import Image from "next/image";
+import { GithubOutlined } from "@ant-design/icons";
 import StyledComponentsRegistry from "../registry";
 
 function UiLayoutWrapper({ children }) {
@@ -55,10 +56,11 @@ function UiLayoutWrapper({ children }) {
                     <Menu style={{ minWidth: '800px' }}
                         mode="horizontal" defaultSelectedKeys={pathname} items={menuItems} />
 
-                    {/* <span style={{ float: 'right', right: 20, position: 'absolute' }}>
-                        {!wallet?.address && <Button href="#" type="primary" onClick={connect}>Connect</Button>}
-                        {wallet?.address && <span>{abbreviate(wallet?.address)}&nbsp;(<a href="#" onClick={logout}>logout</a>)</span>}
-                    </span> */}
+                    <span style={{ float: 'right', right: 20, position: 'absolute' }}>
+                        <a href={GITHUB_URL} target="_blank"> 
+                        <GithubOutlined />&nbsp;Github
+                        </a>
+                    </span>
 
 
                 </Header>
@@ -72,7 +74,7 @@ function UiLayoutWrapper({ children }) {
                 <Footer style={{ textAlign: 'center' }}>
                     <hr />
                     <br />
-                    {APP_NAME} ©2023. Created for the&nbsp;
+                    {APP_NAME} ©2023. Created for the&nbsp;<a href={HACKATHON_URL} target="_blank">Dropbox Sign Hackathon 2023</a>.&nbsp;
 
                 </Footer>
             </Layout>

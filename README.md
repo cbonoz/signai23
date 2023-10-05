@@ -23,34 +23,59 @@ Advisory takes the challenge out of crafting the perfect signature request email
 ### How to run
 `yarn; yarn dev`
 
-    
-
 From `./server`
 
 Set the following `.env` variables:
 <pre>
-    DROPBOX_KEY= // your key for sign api
+    DROPBOX_KEY= // your key for dropbox sign api
     DROPBOX_CLIENT_ID= // your dropbox app client id
     OPENAI_KEY= // your open ai api key
 </pre>
 
 `yarn; yarn start`
 
+The server does most of the heavy lifting around mapping to accounts that are within your app. If you have multiple emails within an organization and provide an organization access key, an email within that account should work with the Advisory app.
+
 ## How we built it
+
+Advisory was built using a combination of technologies and services to address the challenges of crafting the perfect signature request email. The key components and technologies used in the development of Advisory include:
+
+Dropbox/Hellosign Integration: We integrated with the Dropbox Sign API and used the Dropbox app client ID to seamlessly create and manage signature requests. This integration allows users to initiate signature requests directly from Advisory.
+
+OpenAI's Generative AI: We harnessed the power of OpenAI's Generative AI to assist users in composing the signature request email. OpenAI's AI models analyze the context of the signature request, such as the document being signed and the recipient's details, and generate a well-crafted email draft.
+
+Node.js Server: We implemented a Node.js server to handle the communication between the Advisory platform, Dropbox/Hellosign, and OpenAI's API. The server orchestrates the entire process, from gathering input data to generating the email draft.
+
 
 ## Challenges we ran into
 
+Data Mapping and Authentication: One of the challenges was mapping user accounts within the application and ensuring secure authentication. This was necessary to link the appropriate Dropbox accounts with Advisory and ensure that signature requests were sent to the correct recipients.
+
+Integration Complexity: Integrating with external services like Dropbox Sign API and OpenAI's API can be complex due to the intricacies of their respective documentation and authentication requirements.
+
+Natural Language Generation: Developing a reliable and context-aware natural language generation system can be challenging. We had to fine-tune OpenAI's AI model to ensure it generated accurate and coherent email drafts.
+
+
+
 ## Accomplishments that we're proud of
+
+ Advisory simplifies the process of crafting signature request emails, saving users time and effort. The generated email drafts are contextually relevant, making it easier to collect signatures.
 
 ## What we learned
 
+API Integration: We learned how to effectively integrate with third-party APIs, manage authentication, and handle data exchange.
+
+Natural Language Generation: We improved our understanding of natural language generation and how to tailor AI-generated content to specific contexts.
+
+User-Centric Design: We prioritized user experience and learned the importance of creating a user-friendly interface to make complex tasks more accessible.
+
+
 ## What's next for Advisory
+
+Advisory is an open source project and can be deployed for your unique organization locally/securely. Can use your existing Dropbox sign account and an OpenAI API key to quickly draft emails for all your requests at a very low cost.
 
 
 ## Useful links
 * https://developers.hellosign.com/api/quickstart/
 * https://github.com/hellosign/dropbox-sign-node
 * https://legaltemplates.net/form/lease-agreement/
-
-### Example signature id (embedded):
-ca78c2d82f172017cd602f047ee553323f3b92f9

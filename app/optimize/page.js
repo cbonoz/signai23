@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { generateEmail, getEmbedUrl, getRequests } from '../api';
 import { Button, Input, Row, Col, Card, Table, Pagination, Divider } from 'antd';
 import DisplayRequest from '../lib/DisplayRequest';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, CopyOutlined } from '@ant-design/icons';
 import { parseError } from '../util';
 
 
@@ -21,13 +21,18 @@ export default function Optimize() {
     const [requests, setRequests] = useState([])
     const [error, setError] = useState(null)
 
-    const copyToClipboard = () => {
+    const copyToClipboard = async () => {
         // Check support
         if (!navigator.clipboard) {
             alert('Clipboard copy not supported on your browser')
             return
         }
-        navigator.clipboard.writeText(result.text)
+        const text = result.text
+        if ("clipboard" in navigator) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            document.execCommand("copy", true, text);
+          }
         alert('Copied to clipboard')
     }
 
@@ -61,7 +66,7 @@ export default function Optimize() {
 
         try {
             const body = {
-                signerName: (activeRequest.signatures || []).map(s => s.signerName).join(','),
+                signers: (activeRequest.signatures || []).map(s => s.signerName).join(','),
                 documentContent: `${activeRequest.title}. ${activeRequest.message}`,
                 context: '',
                 requestId: activeRequest.signatureRequestId
@@ -101,10 +106,12 @@ export default function Optimize() {
                     {!activeRequest && <div>
                         <Button type="primary" className='standard-margin standard-btn' onClick={fetchData} disabled={loading} loading={dataLoading}>Fetch data</Button>
 
+                        <Divider />
+
                         <Table
                             dataSource={requests.requests}
                             pagination={false}
-                            className='poiner'
+                            className='pointer'
                             onRow={(record, rowIndex) => {
                                 return {
                                     onClick: () => { setActiveRequest(record) }, // click row
@@ -148,8 +155,8 @@ export default function Optimize() {
                         <div>
                             <Button type="primary" className='standard-btn' onClick={generate} disabled={loading || !activeRequest} loading={loading}>Generate email</Button>
 
-                            <Divider/>
                         </div>
+                            <Divider/>
 
                         {/* error */}
                         {error && <div>
@@ -158,7 +165,13 @@ export default function Optimize() {
 
                         {/* Render result email recommendation with a copy as text */}
                         {result.text && <div>
-                            <h2>Result</h2>
+                            <h2>Result&nbsp;<CopyOutlined 
+                            className='pointer'
+                            onClick={copyToClipboard}
+                            />
+
+
+                            </h2>
 
                             <div class="flex flex-col display-linebreak">
                                 {result.text}
