@@ -1,6 +1,6 @@
 'use client';
 
-import { APP_DESC, APP_NAME,  GITHUB_URL } from "../constants";
+import { APP_DESC, APP_NAME, GITHUB_URL } from "../constants";
 import Image from 'next/image'
 import Button from 'antd/es/button'
 import { useRouter } from "next/navigation";
@@ -18,18 +18,30 @@ export default function About() {
             <br />
             <br />
 
-            <p>
+            <p className="text-bold">
                 <Image src="/logo.png" alt="Advisory Logo" width={180} height={37} /><br /><br />
-                {APP_NAME} | {APP_DESC}
+                {APP_NAME} | {APP_DESC}.
             </p>
+
+            <p>
+                Creating the signature request is only one part of the effort when using Dropbox/Hellosign.
+            </p>
+            <p>
+
+                The second half is actually collecting the signature, and this can often be greatly influenced by the messaging that goes along with the request. Templates exist for sending messages, but often won't be tailored to the individual or the context, and using the right language can be key to an agreement pushing ahead.
+
+            </p>
+            <p>
+                Advisory is created as a free / hostable app that uses your Dropbox API key to enable your team to create better crafted messages.
+            </p>
+
+            <Divider/>
 
             {/* github */}
             <p>
                 {APP_NAME} is an open source project. You can find the code on GitHub here:&nbsp;
                 <a href={GITHUB_URL} target="_blank">GitHub</a>&nbsp;
             </p>
-
-            <p></p>
             <p>
                 {/* Create listing */}
                 <Button type="primary" onClick={() => {

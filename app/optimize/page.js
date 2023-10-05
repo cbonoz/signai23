@@ -12,7 +12,7 @@ import { parseError } from '../util';
 export default function Optimize() {
     // https://developers.hellosign.com/api/reference/operation/signatureRequestGet/
     // const [signatureId, setSignatureId] = useState('580a47268c65e54acf062479b3d96b8b') // Should be unsigned signature id (signature id is signer specific).
-    const [email, setEmail] = useState('chrisdistrict@gmail.com')
+    const [email, setEmail] = useState('');
     const [visibleEmail, setVisibleEmail] = useState(false)
     const [loading, setLoading] = useState(false)
     const [dataLoading, setDataLoading] = useState(false)
@@ -39,7 +39,6 @@ export default function Optimize() {
 
     const fetchData = async () => {
         if (!email) {
-            alert('Please enter an email')
             return
         }
 
@@ -112,7 +111,7 @@ export default function Optimize() {
                             {visibleEmail ? 'Hide' : 'Show'} email
                         </span>
                         <br />
-                        <Button type="primary" className='standard-margin standard-btn' onClick={fetchData} disabled={loading} loading={dataLoading}>Fetch data</Button>
+                        <Button type="primary" className='standard-margin standard-btn' onClick={fetchData} disabled={loading || !email} loading={dataLoading}>Fetch data</Button>
 
                         <Divider />
 

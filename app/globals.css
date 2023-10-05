@@ -142,7 +142,7 @@ a {
   color: red;
 }
 
-.bold {
+.bold, .text-bold {
   font-weight: bold;
 }
 

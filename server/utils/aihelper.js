@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 
 // Load your key from an environment variable or secret management service.
 const OPENAI_API_KEY = process.env.OPENAI_KEY;
-console.log('OPENAI_API_KEY', OPENAI_API_KEY)
+console.log('OPENAI_API_KEY', OPENAI_API_KEY.slice(0,6))
 
 const openai = new OpenAI({
     apiKey: OPENAI_API_KEY

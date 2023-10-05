@@ -7,14 +7,15 @@ Advisory
 ---
 
 
-Advisory is a messaging recommendation platform for optimizing signature request gathering via email.
+Advisory is a email drafting platform for optimizing signature request conversation via email.
 
 ## Inspiration
 
-Creating the signature request is only one part of the effort when using Dropbox/Hellosign.
+Creating the signature request is only one part of the effort when using Dropbox/Hellosign. 
 
-The second half is actually collecting the signature, and this can often be greatly influenced by the messaging that goes along with the request.
+The second half is actually collecting the signature, and this can often be greatly influenced by the messaging that goes along with the request. Templates exist for sending messages, but often won't be tailored to the individual or the context, and using the right language can be key to an agreement pushing ahead.
 
+Advisory is created as a free / hostable app that uses your Dropbox API key to enable your team to create better crafted messages.
 
 ## What it does
 
@@ -40,7 +41,7 @@ The server does most of the heavy lifting around mapping to accounts that are wi
 
 Advisory was built using a combination of technologies and services to address the challenges of crafting the perfect signature request email. The key components and technologies used in the development of Advisory include:
 
-Dropbox/Hellosign Integration: We integrated with the Dropbox Sign API and used the Dropbox app client ID to seamlessly create and manage signature requests. This integration allows users to initiate signature requests directly from Advisory.
+Dropbox/Hellosign Integration: We integrated with the Dropbox Sign API and used the Dropbox app client ID to seamlessly create and manage signature requests. This integration allows users to initiate signature requests directly from Advisory. In particular the paginated list endpoint and signature request details endpoints are used.
 
 OpenAI's Generative AI: We harnessed the power of OpenAI's Generative AI to assist users in composing the signature request email. OpenAI's AI models analyze the context of the signature request, such as the document being signed and the recipient's details, and generate a well-crafted email draft.
 
@@ -73,6 +74,30 @@ User-Centric Design: We prioritized user experience and learned the importance o
 ## What's next for Advisory
 
 Advisory is an open source project and can be deployed for your unique organization locally/securely. Can use your existing Dropbox sign account and an OpenAI API key to quickly draft emails for all your requests.
+
+## Screenshots
+
+### Home
+<img src="./img/home.png" width=600 />
+
+### Optimize
+<img src="./img/.png" width=600 />
+
+### NDA example
+<img src="./img/example.png" width=600 />
+
+### Offer example
+<img src="./img/offer.png" width=600 />
+
+### About page
+<img src="./img/about.png" width=600 />
+
+
+
+
+
+
+
 
 
 ## Useful links

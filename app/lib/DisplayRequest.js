@@ -8,6 +8,7 @@ const DisplayRequest = ({ request }) => {
         message,
         signatureRequestId,
         signatures,
+        filesUrl,
         createdAt,
     } = request
 
@@ -27,6 +28,12 @@ const DisplayRequest = ({ request }) => {
                 </div>
             )
         })}
+
+        {/* {filesUrl && <div>
+            <br/>
+            <h3>Files:</h3>
+            <a href={filesUrl} target="_blank" rel="noreferrer">{filesUrl}</a>
+        </div>} */}
 
         {createdAt && <p className="standard-margin">Created at: {formatDate(createdAt)}</p>}
         <br/>
