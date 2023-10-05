@@ -1,5 +1,7 @@
+<br/>
+
 <p align='center'>
-    <img src='./img/logo.png' width=600 />
+    <img src='./img/logo.png' width=500 />
 </p>
 <br/>
 
@@ -7,7 +9,7 @@ Advisory
 ---
 
 
-Advisory is a email drafting platform for optimizing signature request conversation via email.
+Advisory is a email drafting platform for optimizing signature request conversion via email.
 
 ## Inspiration
 
