@@ -6,7 +6,8 @@
 Advisory
 ---
 
-Advisory is a email drafting platform for optimizing signature request language and conversion.
+Advisory is an email drafting platform for optimizing signature request language and conversion.
+
 
 Built for the <a href="https://dropboxhackathon2023.devpost.com/">Dropbox Sign AI Hackathon 2023</a>.
 
