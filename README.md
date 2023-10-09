@@ -8,16 +8,19 @@
 Advisory
 ---
 
+Advisory is a locally hosted email drafting platform for optimizing signature request conversion.
 
-Advisory is a email drafting platform for optimizing signature request conversion via email.
+Built for the <a href="https://dropboxhackathon2023.devpost.com/">Dropbox Sign AI Hackathon 2023</a>.
+
+Demo video: https://youtu.be/ZJcXAMY0kys
 
 ## Inspiration
 
 Creating the signature request is only one part of the effort when using Dropbox/Hellosign. 
 
-The second half is actually collecting the signature, and this can often be greatly influenced by the messaging that goes along with the request. Templates exist for sending messages, but often won't be tailored to the individual or the context, and using the right language can be key to an agreement pushing ahead.
+The second half is collecting the signature, which can often be greatly influenced by the messaging that goes along with the request. Templates exist for sending messages, but usually won't be tailored to the individual or the context, and using the right language can be critical to an agreement pushing ahead.
 
-Advisory is created as a free / hostable app that uses your Dropbox API key to enable your team to create better crafted messages.
+Advisory is created as a free/hostable app that uses your Dropbox API key to enable your team to create better-crafted messages.
 
 ## What it does
 
@@ -62,8 +65,6 @@ Integration Complexity: Integrating with external services like Dropbox Sign API
 
 Natural Language Generation: Developing a reliable and context-aware natural language generation system can be challenging. We had to fine-tune OpenAI's AI model to ensure it generated accurate and coherent email drafts.
 
-
-
 ## Accomplishments that we're proud of
 
  Advisory simplifies the process of crafting signature request emails, saving users time and effort. The generated email drafts are contextually relevant, making it easier to collect signatures.
@@ -77,9 +78,14 @@ Natural Language Generation: We improved our understanding of natural language g
 User-Centric Design: We prioritized user experience and learned the importance of creating a user-friendly interface to make complex tasks more accessible.
 
 
-## What's next for Advisory
+## What's next for Advisory / Potential future work
 
 Advisory is an open source project and can be deployed for your unique organization locally/securely. Can use your existing Dropbox Sign account and an OpenAI API key to quickly draft emails for all your requests.
+
+1. Multi-Language Support: Extend Advisory's natural language generation capabilities to support multiple languages, catering to a more diverse user base.
+2. AI Customization: Provide users with the ability to fine-tune and customize the AI model's behavior, allowing for more personalized and industry-specific email drafting.
+3. Collaboration Features: Develop collaborative features that enable multiple team members to work on and review signature request emails within Advisory, streamlining the approval process.
+4. Analytics and Insights: Implement analytics and reporting tools to help users track the success rate and efficiency of their signature request email campaigns, providing valuable insights for optimization.
 
 ## Screenshots
 
@@ -97,13 +103,6 @@ Advisory is an open source project and can be deployed for your unique organizat
 
 ### About page
 <img src="./img/about.png" width=600 />
-
-
-
-
-
-
-
 
 
 ## Useful links
