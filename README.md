@@ -6,7 +6,7 @@
 Advisory
 ---
 
-Advisory is a locally hosted email drafting platform for optimizing signature request conversion.
+Advisory is a email drafting platform for optimizing signature request language and conversion.
 
 Built for the <a href="https://dropboxhackathon2023.devpost.com/">Dropbox Sign AI Hackathon 2023</a>.
 
@@ -90,7 +90,7 @@ Advisory is an open source project and can be deployed for your unique organizat
 ### Home
 <img src="./img/home.png" width=600 />
 
-### Listing requests for a connected account:
+### Listing requests for a connected account
 <img src="./img/list.png" width=600 />
 
 ### Optimize
