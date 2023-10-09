@@ -90,6 +90,9 @@ Advisory is an open source project and can be deployed for your unique organizat
 ### Home
 <img src="./img/home.png" width=600 />
 
+### Listing requests for a connected account:
+<img src="./img/list.png" width=600 />
+
 ### Optimize
 <img src="./img/create.png" width=600 />
 
