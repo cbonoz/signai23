@@ -6,7 +6,7 @@ import { generateEmail, getEmbedUrl, getRequests } from '../api';
 import { Button, Input, Row, Col, Card, Table, Pagination, Divider, Switch } from 'antd';
 import DisplayRequest from '../lib/DisplayRequest';
 import { ArrowLeftOutlined, CopyOutlined } from '@ant-design/icons';
-import { parseError } from '../util';
+import { formatDate, isEmpty, parseError } from '../util';
 
 
 export default function Optimize() {
@@ -80,17 +80,19 @@ export default function Optimize() {
         }
     }
 
+    const hasRequests = !isEmpty(requests?.requests)
+
     return (
         <Row gutter={[16, 16]}>
             <Col sm={12} xs={24}>
                 <Card title="Provide information">
+                    <b>Email:</b>
 
-                    <Input placeholder='Email'
+                    <Input placeholder='Enter an email address associated with your Dropbox account'
                         type={visibleEmail ? 'text' : 'password'}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={loading} />
-
 
                     {activeRequest && <div>
                         {/* Back */}
@@ -113,7 +115,14 @@ export default function Optimize() {
                         <br />
                         <Button type="primary" className='standard-margin standard-btn' onClick={fetchData} disabled={loading || !email} loading={dataLoading}>Fetch data</Button>
 
+                  
                         <Divider />
+
+                     
+                        {hasRequests && !activeRequest && <div>
+                            <h3>Select a request to continue:</h3>
+                            <br/>
+                        </div>}
 
                         <Table
                             dataSource={requests.requests}
@@ -126,7 +135,7 @@ export default function Optimize() {
                             }}
                             columns={[
                                 {
-                                    title: 'Title',
+                                    title: 'Signature Request Title',
                                     dataIndex: 'title',
                                     key: 'title',
                                     render: (text, record) => {
@@ -134,6 +143,19 @@ export default function Optimize() {
                                             <div key={record.signatureRequestId}>
                                                 {/* abbreviate */}
                                                 {text.substring(0, 50)}
+                                            </div>
+                                        )
+                                    }
+                                },
+                                {
+                                    title: 'Created At',
+                                    dataIndex: 'createdAt',
+                                    key: 'createdAt',
+                                    render: (text, record) => {
+                                        return (
+                                            <div key={record.signatureRequestId}>
+                                                {/* abbreviate */}
+                                                {formatDate(record.createdAt)}
                                             </div>
                                         )
                                     }

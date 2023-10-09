@@ -1,10 +1,8 @@
 <br/>
-
 <p align='center'>
     <img src='./img/logo.png' width=500 />
 </p>
 <br/>
-
 Advisory
 ---
 
@@ -26,12 +24,12 @@ Advisory is created as a free/hostable app that uses your Dropbox API key to ena
 
 Advisory takes the challenge out of crafting the perfect signature request email by fusing the context of the signature request with generative AI to give you an email draft to send to the signer.
 
-### How to run
+## How to run
 
-#### Client
+### Client
 `yarn; yarn dev`
 
-#### Server
+### Server
 
 From `./server`
 
@@ -103,7 +101,6 @@ Advisory is an open source project and can be deployed for your unique organizat
 
 ### About page
 <img src="./img/about.png" width=600 />
-
 
 ## Useful links
 * https://developers.hellosign.com/api/quickstart/

@@ -8,6 +8,10 @@ export const formatDate = (date) => {
     return localDate;
 }
 
+export const isEmpty = s => {
+    return !s || s.length === 0
+}
+
 export const parseError = (error) => {
     if (error.response && error.response.data) {
         error = error.response.data.error?.error || error.response.data.error || error.response.data;
